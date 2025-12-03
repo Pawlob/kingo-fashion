@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KINGO FASHION | Men's Premium Wear</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Poppins:wght@300;400;500;600&family=Noto+Serif+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        kingo: {
+                            gold: '#D4AF37',
+                            dark: '#111111',
+                            gray: '#222222',
+                            light: '#f4f4f4'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        header: ['Oswald', 'sans-serif'],
+                        amharic: ['Noto Serif Ethiopic', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Smooth Scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom Keyframes */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-animation { animation: float 6s ease-in-out infinite; }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Transition */
+        #mobile-menu {
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.active {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Sidebar & Modal Transitions */
+        #cart-sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .sidebar-open { transform: translateX(0) !important; }
+        .sidebar-closed { transform: translateX(100%); }
+        
+        #quick-view-modal { transition: opacity 0.3s ease-in-out; }
+
+        /* Button Ripple Effect */
+        .btn-interactive {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-interactive:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-white relative overflow-x-hidden">
+
+    <!-- Preloader -->
+    <div id="preloader" class="fixed inset-0 z-[60] bg-kingo-dark flex items-center justify-center transition-opacity duration-700">
+        <div class="text-center">
+            <h1 class="text-5xl font-header font-bold tracking-widest text-white mb-4 animate-pulse">KINGO<span class="text-kingo-gold">FASHION</span></h1>
+            <div class="w-12 h-12 border-4 border-kingo-gold border-t-transparent rounded-full animate-spin mx-auto"></div>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="bg-kingo-dark text-gray-400 py-2 text-xs border-b border-gray-800">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <span class="hover:text-white transition"><i class="fas fa-phone-alt mr-2 text-kingo-gold"></i>+251 911 000 000</span>
+                <span class="hidden md:inline hover:text-white transition"><i class="fas fa-map-marker-alt mr-2 text-kingo-gold"></i>Bole, Addis Ababa <span class="font-amharic ml-1 text-[10px]">(ቦሌ፣ አዲስ አበባ)</span></span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button onclick="openProposalModal()" class="bg-kingo-gold text-kingo-dark px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider hover:bg-white transition duration-300 shadow-sm border border-transparent hover:border-kingo-gold animate-pulse">
+                    Open Proposal
+                </button>
+                <div class="flex space-x-4 border-l border-gray-700 pl-4">
+                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
+            <a href="#" class="text-3xl font-header font-bold tracking-widest text-kingo-dark flex items-center gap-2 group">
+                KINGO<span class="text-kingo-gold group-hover:rotate-12 transition-transform duration-300 inline-block">FASHION</span>
+            </a>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wide uppercase items-center">
+                <a href="#" class="group text-center hover:text-kingo-gold transition duration-300">
+                    <span class="block">Home</span>
+                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">መነሻ</span>
+                </a>
+                <a href="#collection" class="group text-center hover:text-kingo-gold transition duration-300">
+                    <span class="block">New Arrivals</span>
+                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">አዲስ የገቡ</span>
+                </a>
+                <a href="#collection" onclick="document.getElementById('btn-suits').click()" class="group text-center hover:text-kingo-gold transition duration-300 cursor-pointer">
+                    <span class="block">Suits</span>
+                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ሱፍ</span>
+                </a>
+                <a href="#collection" onclick="document.getElementById('btn-shoes').click()" class="group text-center hover:text-kingo-gold transition duration-300 cursor-pointer">
+                    <span class="block">Shoes</span>
+                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ጫማ</span>
+                </a>
+                <a href="#contact" class="group text-center hover:text-kingo-gold transition duration-300">
+                    <span class="block">Contact</span>
+                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ያግኙን</span>
+                </a>
+            </div>
+
+            <!-- Icons -->
+            <div class="flex items-center space-x-5">
+                <button onclick="toggleCart()" class="text-gray-800 hover:text-kingo-gold transition relative z-50 transform hover:scale-110">
+                    <i class="fas fa-shopping-bag text-xl"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-kingo-gold text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-bounce">0</span>
+                </button>
+                <button class="md:hidden text-gray-800 focus:outline-none transform hover:rotate-180 transition duration-500" onclick="toggleMenu()">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="bg-gray-50 border-t md:hidden">
+            <div class="flex flex-col p-4 space-y-3 font-medium">
+                <a href="#" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
+                    Home <span class="text-xs font-amharic text-gray-500 ml-2">መነሻ</span>
+                </a>
+                <a href="#collection" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
+                    New Arrivals <span class="text-xs font-amharic text-gray-500 ml-2">አዲስ የገቡ</span>
+                </a>
+                <a href="#collection" onclick="document.getElementById('btn-suits').click(); toggleMenu()" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
+                    Suits <span class="text-xs font-amharic text-gray-500 ml-2">ሱፍ</span>
+                </a>
+                <a href="#collection" onclick="document.getElementById('btn-shoes').click(); toggleMenu()" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
+                    Shoes <span class="text-xs font-amharic text-gray-500 ml-2">ጫማ</span>
+                </a>
+                <a href="#contact" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
+                    Contact <span class="text-xs font-amharic text-gray-500 ml-2">ያግኙን</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-kingo-dark h-[650px] flex items-center overflow-hidden">
+        <!-- Background Image with Overlay and Zoom Effect -->
+        <div class="absolute inset-0 z-0 overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop" alt="Men Fashion" class="w-full h-full object-cover opacity-40 transform hover:scale-110 transition duration-[20s] ease-linear">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="max-w-xl">
+                <span data-aos="fade-right" data-aos-duration="1000" class="text-kingo-gold font-bold tracking-widest uppercase text-sm mb-2 block">
+                    Premium Collection 2025 <br> 
+                    <span class="font-amharic text-xs font-normal opacity-90">ፕሪሚየም ስብስብ 2025</span>
+                </span>
+                <h1 data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200" class="text-5xl md:text-7xl font-header font-bold text-white mb-4 leading-tight">
+                    Dress Like <br> A <span class="text-kingo-gold inline-block hover:animate-pulse">King.</span>
+                </h1>
+                <h2 data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300" class="text-3xl font-amharic text-white/90 mb-6">
+                    እንደ ንጉስ ይልበሱ።
+                </h2>
+                <p data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400" class="text-gray-300 text-lg mb-8 leading-relaxed">
+                    Elevate your style with our exclusive range of bespoke suits, traditional Habesha wear, and modern casuals.
+                    <br>
+                    <span class="font-amharic text-sm text-gray-400 mt-1 block">ስታይልዎን በልዩ የሱፍ፣ የሀበሻ ባህላዊ ልብሶች እና ዘመናዊ ካልቾዎች ያሳድጉ።</span>
+                </p>
+                <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600" class="flex space-x-4 mb-6">
+                    <a href="#collection" class="btn-interactive bg-kingo-gold text-white px-8 py-3 font-bold hover:bg-yellow-600 rounded-sm shadow-lg hover:shadow-yellow-500/50 text-center">
+                        Shop Now <br> <span class="font-amharic text-xs font-normal">አሁኑኑ ይግዙ</span>
+                    </a>
+                    <a href="#contact" class="btn-interactive border border-white text-white px-8 py-3 font-bold hover:bg-white hover:text-black rounded-sm backdrop-blur-sm text-center">
+                        Visit Store <br> <span class="font-amharic text-xs font-normal">ሱቅ ይጎብኙ</span>
+                    </a>
+                </div>
+                <p data-aos="fade-in" data-aos-duration="1500" data-aos-delay="1000" class="text-xs text-gray-400 font-medium tracking-wide">Designed by Pawlos Mulugeta</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section class="py-16 bg-white overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div data-aos="fade-up" data-aos-delay="100" class="p-6 border border-gray-100 shadow-sm hover:shadow-2xl transition duration-500 rounded-lg group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-kingo-gold group-hover:bg-kingo-gold group-hover:text-white transition duration-500">
+                        <i class="fas fa-ruler-combined text-2xl group-hover:scale-110 transition"></i>
+                    </div>
+                    <h3 class="font-header text-xl font-bold mb-1">Custom Tailoring</h3>
+                    <h4 class="font-amharic text-sm font-bold text-gray-600 mb-2">ብጁ ልብስ ስፌት</h4>
+                    <p class="text-gray-500 text-sm">Perfect fit guaranteed with our expert in-house tailors.</p>
+                    <p class="text-gray-400 text-xs font-amharic mt-1">በባለሙያ ልብስ ሰፊዎቻችን ፍጹም ልክ እንሰፋለን።</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="300" class="p-6 border border-gray-100 shadow-sm hover:shadow-2xl transition duration-500 rounded-lg group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-kingo-gold group-hover:bg-kingo-gold group-hover:text-white transition duration-500">
+                        <i class="fas fa-shipping-fast text-2xl group-hover:scale-110 transition"></i>
+                    </div>
+                    <h3 class="font-header text-xl font-bold mb-1">Fast Delivery</h3>
+                    <h4 class="font-amharic text-sm font-bold text-gray-600 mb-2">ፈጣን አቅርቦት</h4>
+                    <p class="text-gray-500 text-sm">Delivery across Addis Ababa and regional cities.</p>
+                    <p class="text-gray-400 text-xs font-amharic mt-1">በአዲስ አበባ እና በክልል ከተሞች እናደርሳለን።</p>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="500" class="p-6 border border-gray-100 shadow-sm hover:shadow-2xl transition duration-500 rounded-lg group hover:-translate-y-2">
+                    <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4 text-kingo-gold group-hover:bg-kingo-gold group-hover:text-white transition duration-500">
+                        <i class="fas fa-medal text-2xl group-hover:scale-110 transition"></i>
+                    </div>
+                    <h3 class="font-header text-xl font-bold mb-1">Premium Quality</h3>
+                    <h4 class="font-amharic text-sm font-bold text-gray-600 mb-2">ከፍተኛ ጥራት</h4>
+                    <p class="text-gray-500 text-sm">Finest imported fabrics and authentic local designs.</p>
+                    <p class="text-gray-400 text-xs font-amharic mt-1">ምርጥ የውጭ ጨርቆች እና ትክክለኛ የሀገር ውስጥ ዲዛይኖች።</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="collection" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12" data-aos="zoom-in">
+                <span class="text-kingo-gold font-bold uppercase tracking-widest text-xs block">Shop The Look</span>
+                <span class="font-amharic text-xs text-gray-500 mb-2 block">ምርጥ ገጽታን ይላበሱ</span>
+                <h2 class="text-3xl md:text-4xl font-header font-bold text-gray-900 mt-2">Latest Arrivals</h2>
+                <h3 class="font-amharic text-xl text-gray-600 mt-1">አዲስ የገቡ</h3>
+                <div class="w-20 h-1 bg-kingo-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <!-- Categories Tabs -->
+            <div class="flex justify-center mb-10 space-x-4 md:space-x-8 text-sm md:text-base font-medium" data-aos="fade-up">
+                <button onclick="filterProducts('all', this)" class="category-btn text-center text-kingo-gold border-b-2 border-kingo-gold pb-1 transition-all duration-300 hover:text-kingo-gold hover:scale-105">
+                    <span class="block">All</span>
+                    <span class="block text-[10px] font-amharic">ሁሉም</span>
+                </button>
+                <button id="btn-suits" onclick="filterProducts('Suits', this)" class="category-btn text-center text-gray-500 hover:text-kingo-dark pb-1 transition-all duration-300 hover:scale-105">
+                    <span class="block">Suits</span>
+                    <span class="block text-[10px] font-amharic">ሱፍ</span>
+                </button>
+                <button id="btn-shoes" onclick="filterProducts('Shoes', this)" class="category-btn text-center text-gray-500 hover:text-kingo-dark pb-1 transition-all duration-300 hover:scale-105">
+                    <span class="block">Shoes</span>
+                    <span class="block text-[10px] font-amharic">ጫማ</span>
+                </button>
+                <button onclick="filterProducts('Casual', this)" class="category-btn text-center text-gray-500 hover:text-kingo-dark pb-1 transition-all duration-300 hover:scale-105">
+                    <span class="block">Casual</span>
+                    <span class="block text-[10px] font-amharic">ካልቾ</span>
+                </button>
+            </div>
+
+            <!-- Product Grid -->
+            <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
+                
+                <!-- Product 1 -->
+                <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Suits" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=2080&auto=format&fit=crop" alt="Suit" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                        <span class="absolute top-2 left-2 md:top-4 md:left-4 bg-black text-white text-[10px] md:text-xs px-2 py-1 uppercase font-bold animate-pulse">New</span>
+                        <div class="product-actions absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 transform translate-y-4 transition duration-300 z-10">
+                            <button onclick="addToCart('Italian Slim Fit Suit', '8,500 ETB', 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=2080&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
+                            <button onclick="openQuickView('Italian Slim Fit Suit', '8,500 ETB', 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=2080&auto=format&fit=crop', 'Premium Italian wool blend, slim fit design perfect for weddings and corporate events.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
+                        </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
+                    </div>
+                    <div class="p-3 md:p-4 text-center">
+                        <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Italian Slim Fit Suit</h3>
+                        <p class="text-gray-500 text-xs md:text-sm mb-2">Suits <span class="font-amharic text-[10px] ml-1">(ሱፍ)</span></p>
+                        <span class="text-kingo-gold font-bold text-sm md:text-lg">8,500 ETB</span>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Casual" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop" alt="Shirt" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                        <div class="product-actions absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 transform translate-y-4 transition duration-300 z-10">
+                            <button onclick="addToCart('Oxford Formal Shirt', '1,500 ETB', 'https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
+                            <button onclick="openQuickView('Oxford Formal Shirt', '1,500 ETB', 'https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop', 'Classic white Oxford shirt, 100% cotton, breathable and wrinkle-resistant.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-3 md:p-4 text-center">
+                        <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Oxford Formal Shirt</h3>
+                        <p class="text-gray-500 text-xs md:text-sm mb-2">Casual <span class="font-amharic text-[10px] ml-1">(ካልቾ)</span></p>
+                        <span class="text-kingo-gold font-bold text-sm md:text-lg">1,500 ETB</span>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Shoes" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                        <span class="absolute top-2 left-2 md:top-4 md:left-4 bg-kingo-gold text-white text-[10px] md:text-xs px-2 py-1 uppercase font-bold">Best Seller</span>
+                        <div class="product-actions absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 transform translate-y-4 transition duration-300 z-10">
+                            <button onclick="addToCart('Classic Oxfords', '3,500 ETB', 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
+                            <button onclick="openQuickView('Classic Oxfords', '3,500 ETB', 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop', 'Premium leather Oxford shoes, perfect for formal occasions.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-3 md:p-4 text-center">
+                        <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Classic Oxfords</h3>
+                        <p class="text-gray-500 text-xs md:text-sm mb-2">Shoes <span class="font-amharic text-[10px] ml-1">(ጫማ)</span></p>
+                        <span class="text-kingo-gold font-bold text-sm md:text-lg">3,500 ETB</span>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Shoes" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                        <div class="product-actions absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 transform translate-y-4 transition duration-300 z-10">
+                            <button onclick="addToCart('Leather Loafers', '2,800 ETB', 'https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
+                            <button onclick="openQuickView('Leather Loafers', '2,800 ETB', 'https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop', 'Handcrafted pure leather loafers. Durable, stylish, and comfortable.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-3 md:p-4 text-center">
+                        <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Leather Loafers</h3>
+                        <p class="text-gray-500 text-xs md:text-sm mb-2">Shoes <span class="font-amharic text-[10px] ml-1">(ጫማ)</span></p>
+                        <span class="text-kingo-gold font-bold text-sm md:text-lg">2,800 ETB</span>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div class="text-center mt-12" data-aos="fade-up">
+                <button onclick="loadMoreProducts()" id="load-more-btn" class="btn-interactive inline-block border-2 border-gray-900 px-10 py-3 text-gray-900 font-bold hover:bg-gray-900 hover:text-white transition duration-300 uppercase tracking-widest text-sm focus:outline-none text-center">
+                    View All Products <br>
+                    <span class="font-amharic text-[10px] font-normal normal-case">ሁሉንም ምርቶች ይመልከቱ</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Promo Banner -->
+    <section class="py-20 bg-fixed bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop');">
+        <div class="absolute inset-0 bg-black bg-opacity-70"></div>
+        <div class="container mx-auto px-4 relative z-10 text-center text-white" data-aos="zoom-in" data-aos-duration="1000">
+            <h2 class="text-4xl md:text-5xl font-header font-bold mb-2">Wedding Packages</h2>
+            <h3 class="font-amharic text-2xl text-white/90 mb-4">የሰርግ ጥቅሎች</h3>
+            <p class="text-xl text-gray-300 mb-2 max-w-2xl mx-auto">Look your absolute best on your special day. Get 20% off on complete Groom and Groomsmen packages.</p>
+            <p class="text-sm font-amharic text-gray-400 mb-8 max-w-2xl mx-auto">በልዩ ቀንዎ ምርጥ ሆነው ይታዩ። ለሙሽራ እና ለሚዜዎች ሙሉ ጥቅሎች የ20% ቅናሽ ያግኙ።</p>
+            <a href="#contact" class="btn-interactive bg-kingo-gold text-white px-10 py-4 font-bold rounded hover:bg-white hover:text-black transition duration-300 uppercase tracking-widest text-sm inline-block shadow-lg hover:shadow-xl text-center">
+                Book Appointment <br>
+                <span class="font-amharic text-xs font-normal normal-case">ቀጠሮ ይያዙ</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-kingo-dark text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                
+                <!-- About -->
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="text-2xl font-header font-bold mb-6">KINGO<span class="text-kingo-gold">FASHION</span></h4>
+                    <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                        Ethiopia's premier destination for men's fashion. We blend international trends with local elegance to provide timeless style.
+                    </p>
+                    <p class="text-gray-500 text-xs font-amharic leading-relaxed mb-6">
+                        የኢትዮጵያ ቀዳሚ የወንዶች ፋሽን መዳረሻ። አለምአቀፍ ፋሽንን ከሀገር ውስጥ ውበት ጋር አዋህደን ጊዜ የማይሽረው ስታይል እናቀርባለን።
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-kingo-gold transition transform hover:rotate-12 hover:scale-110"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-kingo-gold transition transform hover:rotate-12 hover:scale-110"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-kingo-gold transition transform hover:rotate-12 hover:scale-110"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div data-aos="fade-up" data-aos-delay="200">
+                    <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
+                        Quick Links <br>
+                        <span class="font-amharic text-xs font-normal text-gray-400 normal-case">ፈጣን ሊንኮች</span>
+                    </h4>
+                    <ul class="space-y-3 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-kingo-gold transition hover:translate-x-2 inline-block">Home / <span class="font-amharic text-xs">መነሻ</span></a></li>
+                        <li><a href="#" class="hover:text-kingo-gold transition hover:translate-x-2 inline-block">About Us / <span class="font-amharic text-xs">ስለ እኛ</span></a></li>
+                        <li><a href="#" class="hover:text-kingo-gold transition hover:translate-x-2 inline-block">New Arrivals / <span class="font-amharic text-xs">አዲስ የገቡ</span></a></li>
+                        <li><a href="#" class="hover:text-kingo-gold transition hover:translate-x-2 inline-block">Size Guide / <span class="font-amharic text-xs">የመጠን መመሪያ</span></a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div data-aos="fade-up" data-aos-delay="300">
+                    <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
+                        Contact Us <br>
+                        <span class="font-amharic text-xs font-normal text-gray-400 normal-case">ያግኙን</span>
+                    </h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start group">
+                            <i class="fas fa-map-marker-alt mt-1 mr-3 text-kingo-gold group-hover:bounce"></i>
+                            <span class="group-hover:text-white transition">Bole Medhanialem,<br>Addis Ababa, Ethiopia<br><span class="font-amharic text-xs">ቦሌ መድኃኒዓለም፣ አዲስ አበባ</span></span>
+                        </li>
+                        <li class="flex items-center group">
+                            <i class="fas fa-phone-alt mr-3 text-kingo-gold group-hover:bounce"></i>
+                            <span class="group-hover:text-white transition">+251 911 234 567</span>
+                        </li>
+                        <li class="flex items-center group">
+                            <i class="fas fa-envelope mr-3 text-kingo-gold group-hover:bounce"></i>
+                            <span class="group-hover:text-white transition">info@kingofashion.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Newsletter -->
+                <div data-aos="fade-up" data-aos-delay="400">
+                    <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
+                        Newsletter <br>
+                        <span class="font-amharic text-xs font-normal text-gray-400 normal-case">ጋዜጣ</span>
+                    </h4>
+                    <p class="text-gray-400 text-sm mb-1">Subscribe for latest updates and offers.</p>
+                    <p class="text-gray-500 text-xs font-amharic mb-4">ለአዳዲስ መረጃዎች እና ቅናሾች ይመዝገቡ።</p>
+                    <form onsubmit="handleSubscribe(event)" class="flex flex-col space-y-2">
+                        <input type="email" id="newsletter-email" required placeholder="Your Email / ኢሜይልዎ" class="bg-gray-800 border-none p-3 text-white text-sm focus:ring-1 focus:ring-kingo-gold outline-none transition-all focus:bg-gray-700">
+                        <button type="submit" class="btn-interactive bg-kingo-gold text-white p-3 font-bold text-sm uppercase hover:bg-yellow-600 transition flex justify-between items-center">
+                            <span>Subscribe</span>
+                            <span class="font-amharic font-normal text-xs">ይመዝገቡ</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500 text-xs">&copy; 2025 KINGO FASHION. All Rights Reserved. Designed with Style.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl transform translate-x-full sidebar-closed z-[70] flex flex-col">
+        <div class="p-5 border-b flex justify-between items-center bg-gray-50">
+            <div>
+                <h2 class="text-xl font-bold font-header">Your Cart</h2>
+                <h3 class="text-sm font-amharic text-gray-500">የእርስዎ ጋሪ</h3>
+            </div>
+            <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 hover:rotate-90 transition duration-300"><i class="fas fa-times text-xl"></i></button>
+        </div>
+        <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Cart Items will be injected here -->
+            <div class="text-center text-gray-500 mt-10">
+                Your cart is empty.
+                <br>
+                <span class="font-amharic text-sm">ጋሪዎ ባዶ ነው።</span>
+            </div>
+        </div>
+        <div class="p-5 border-t bg-gray-50">
+            <div class="flex justify-between font-bold text-lg mb-4">
+                <span class="flex flex-col"><span>Total:</span><span class="text-xs font-amharic font-normal text-gray-500">ጠቅላላ፡</span></span>
+                <span id="cart-total">0 ETB</span>
+            </div>
+            <button onclick="alert('Checkout functionality would go here!')" class="btn-interactive w-full bg-kingo-dark text-white py-3 font-bold hover:bg-kingo-gold transition uppercase tracking-wide text-center">
+                Checkout <br>
+                <span class="font-amharic text-xs font-normal normal-case">ይክፈሉ</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="fixed inset-0 z-[80] hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity" onclick="closeQuickView()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-3xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row transition-all duration-300 scale-95" id="modal-content">
+            <div class="w-full md:w-1/2 h-64 md:h-auto bg-gray-200">
+                <img id="qv-image" src="" alt="Product" class="w-full h-full object-cover">
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-center relative">
+                <button onclick="closeQuickView()" class="absolute top-4 right-4 text-gray-400 hover:text-black hover:rotate-90 transition"><i class="fas fa-times text-xl"></i></button>
+                <span class="text-kingo-gold uppercase text-xs font-bold tracking-widest mb-2 block">Kingo Collection</span>
+                <h3 id="qv-title" class="text-3xl font-header font-bold mb-2"></h3>
+                <span id="qv-price" class="text-2xl font-bold text-gray-900 mb-4 block"></span>
+                <p id="qv-desc" class="text-gray-600 text-sm leading-relaxed mb-6"></p>
+                <div class="flex space-x-4">
+                    <button onclick="addToCartFromModal()" class="btn-interactive flex-1 bg-kingo-gold text-white py-3 font-bold hover:bg-yellow-600 transition uppercase text-sm text-center">
+                        Add to Cart <br>
+                        <span class="font-amharic text-[10px] font-normal normal-case">ወደ ጋሪ ጨምር</span>
+                    </button>
+                    <button class="btn-interactive flex-1 border border-gray-300 py-3 font-bold hover:bg-gray-100 transition uppercase text-sm text-center">
+                        Wishlist <br>
+                        <span class="font-amharic text-[10px] font-normal normal-case">የምኞት ዝርዝር</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Proposal Modal -->
+    <div id="proposal-modal" class="fixed inset-0 z-[100] hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm transition-opacity" onclick="closeProposalModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-4xl h-[85vh] rounded-lg shadow-2xl overflow-hidden flex flex-col transition-all duration-300 scale-95" id="proposal-content">
+            
+            <!-- Header -->
+            <div class="bg-kingo-dark text-white p-6 flex justify-between items-center border-b border-gray-800">
+                <div>
+                    <h2 class="text-2xl font-header font-bold tracking-widest">PROJECT <span class="text-kingo-gold">PROPOSAL</span></h2>
+                    <p class="text-xs text-gray-400">Web Design & Development Strategy</p>
+                </div>
+                <button onclick="closeProposalModal()" class="text-gray-400 hover:text-white hover:rotate-90 transition"><i class="fas fa-times text-2xl"></i></button>
+            </div>
+
+            <!-- Content -->
+            <div class="p-8 overflow-y-auto bg-gray-50 leading-relaxed text-gray-700 font-sans">
+                <!-- Proposal Content from Markdown -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">1. Executive Summary</h3>
+                    <p>Kingo Fashion requires a premium digital presence that reflects its status as a leader in men's wear in Ethiopia. This project aims to develop a high-performance, responsive, and culturally resonant e-commerce platform. The website will serve not just as a catalog, but as an immersive brand experience blending international standards with local Ethiopian heritage.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">2. Project Objectives</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Brand Elevation:</strong> Establish a digital identity that screams "Premium" and "Royalty."</li>
+                        <li><strong>Cultural Integration:</strong> Seamlessly blend English and Amharic to cater to local and international audiences.</li>
+                        <li><strong>User Experience (UX):</strong> Ensure a fluid, mobile-first shopping experience with intuitive navigation and motion graphics.</li>
+                        <li><strong>Conversion Optimization:</strong> Implement features like "Quick View," "One-Click Cart," and persuasive calls-to-action to drive sales.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">3. Scope of Work</h3>
+                    <div class="ml-4">
+                        <h4 class="font-bold text-gray-800 mt-2">A. UI/UX Design</h4>
+                        <ul class="list-disc pl-5 space-y-1 mb-2">
+                            <li><strong>Visual Identity:</strong> Dark, gold, and white color palette to signify luxury.</li>
+                            <li><strong>Motion Graphics:</strong> Preloaders, AOS (Animate On Scroll) library integration, and hover effects for a dynamic feel.</li>
+                            <li><strong>Responsiveness:</strong> Fully adaptive layouts for Mobile, Tablet, and Desktop (2-column mobile grids).</li>
+                        </ul>
+
+                        <h4 class="font-bold text-gray-800 mt-2">B. Functional Development</h4>
+                        <ul class="list-disc pl-5 space-y-1 mb-2">
+                            <li><strong>Product Catalog:</strong> Dynamic filtering for categories (Suits, Shoes, Casual, Traditional).</li>
+                            <li><strong>Shopping Cart:</strong> Real-time state management, slide-out sidebar cart, and total calculation.</li>
+                            <li><strong>Quick View:</strong> Modal system to view product details without leaving the page.</li>
+                            <li><strong>Localization:</strong> Amharic translations for key navigation and product terms.</li>
+                        </ul>
+
+                        <h4 class="font-bold text-gray-800 mt-2">C. Technical Stack</h4>
+                        <ul class="list-disc pl-5 space-y-1 mb-2">
+                            <li><strong>Frontend:</strong> HTML5, Tailwind CSS (Utility-first styling).</li>
+                            <li><strong>Animation:</strong> AOS.js (Scroll animations), CSS Keyframes.</li>
+                            <li><strong>Icons:</strong> FontAwesome (Visual cues).</li>
+                            <li><strong>Typography:</strong> Google Fonts (Oswald for headers, Noto Serif Ethiopic for Amharic).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">4. Key Features Implementation</h3>
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li><strong>Dual-Language Interface:</strong> Primary content in English for global appeal. Subtitles and key terms in Amharic for local relevance.</li>
+                        <li><strong>Smart Filtering System:</strong> Instant category switching (Suits, Shoes, Casual) without page reloads.</li>
+                        <li><strong>Interactive Motion:</strong> Entrance animations for Hero text. Zoom effects on product images. Toast notifications for user actions.</li>
+                    </ol>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">5. Timeline Estimate</h3>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Current Status: Sample Ready for Review (Immediate).</strong> The core structure, design, and functionality are built and ready for your immediate assessment.</li>
+                        <li><strong>Phase 1: Feedback & Refinement (3-5 Days):</strong> Incorporating your specific feedback on this sample, adjusting layouts, or tweaking colors as needed.</li>
+                        <li><strong>Phase 2: Content Population (1 Week):</strong> Replacing placeholder data with your actual product inventory, pricing, and high-quality images.</li>
+                        <li><strong>Phase 3: Final Deployment:</strong> Domain setup, hosting configuration, and live launch.</li>
+                    </ul>
+                </div>
+
+                <!-- Investment Section -->
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4">6. Investment Breakdown</h3>
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-gray-100 text-gray-700 font-bold border-b">
+                                <tr>
+                                    <th class="px-4 py-3">Category</th>
+                                    <th class="px-4 py-3">Description</th>
+                                    <th class="px-4 py-3 text-right">Cost (ETB)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100">
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">1. UI/UX Design & Prototyping</td>
+                                    <td class="px-4 py-3 text-gray-600">Creation of visual identity, wireframes, and mobile-first layouts.</td>
+                                    <td class="px-4 py-3 text-right font-medium">18,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">2. Frontend Development</td>
+                                    <td class="px-4 py-3 text-gray-600">Implementation of HTML5, Tailwind CSS, Responsive Grids, and Animations.</td>
+                                    <td class="px-4 py-3 text-right font-medium">38,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">3. Content & Localization</td>
+                                    <td class="px-4 py-3 text-gray-600">Amharic translation integration, image optimization, and copy structuring.</td>
+                                    <td class="px-4 py-3 text-right font-medium">12,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">4. Testing & QA</td>
+                                    <td class="px-4 py-3 text-gray-600">Cross-browser testing, mobile performance optimization, and bug fixing.</td>
+                                    <td class="px-4 py-3 text-right font-medium">10,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">5. Deployment & Setup</td>
+                                    <td class="px-4 py-3 text-gray-600">Server configuration, domain setup, and SEO basic implementation.</td>
+                                    <td class="px-4 py-3 text-right font-medium">8,000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-3 font-medium">6. Post-Launch Support</td>
+                                    <td class="px-4 py-3 text-gray-600">30 days of technical support and minor adjustments after launch.</td>
+                                    <td class="px-4 py-3 text-right font-medium">8,000</td>
+                                </tr>
+                                <tr class="bg-gray-50">
+                                    <td colspan="2" class="px-4 py-3 font-bold text-kingo-dark text-right">TOTAL</td>
+                                    <td class="px-4 py-3 text-right font-bold text-kingo-gold text-lg">94,000 ETB</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="p-3 bg-gray-50 text-xs text-center text-gray-500 italic border-t border-gray-100">
+                            Payment Terms: 50% after sample approval and 50% after final delivery.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8 pl-4 border-l-4 border-gray-300">
+                    <p class="font-bold text-gray-900 text-lg">Pawlos Mulugeta</p>
+                    <p class="text-gray-600">Lead Developer</p>
+                    <div class="text-sm text-gray-500 mt-2">
+                        <p><i class="fas fa-phone-alt mr-2 text-kingo-gold"></i> 0908786726</p>
+                        <p><i class="fas fa-envelope mr-2 text-kingo-gold"></i> Pawlob.21@gmail.com</p>
+                    </div>
+                </div>
+
+                <div class="bg-kingo-gold/10 p-6 rounded text-center border border-kingo-gold border-dashed">
+                    <h4 class="font-bold text-kingo-dark mb-2">Ready to proceed?</h4>
+                    <p class="text-sm text-gray-600 mb-4">We are prepared to deploy the full solution immediately.</p>
+                    <button onclick="closeProposalModal(); window.location.href='#contact'" class="bg-kingo-dark text-white px-6 py-2 rounded text-sm font-bold hover:bg-kingo-gold transition">Contact Us to Start</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-[90] flex flex-col space-y-3"></div>
+
+    <!-- AOS JS Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- JavaScript -->
+    <script>
+        // --- Initialization ---
+        
+        // 1. Initialize Animation Library
+        AOS.init({
+            once: true, // Animations happen only once
+            offset: 100, // Offset from bottom
+            duration: 800, // Animation duration
+            easing: 'ease-out-cubic',
+        });
+
+        // 2. Hide Preloader
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.classList.add('opacity-0');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    // Trigger hero animations explicitly if needed, but AOS handles mostly on scroll
+                }, 700);
+            }, 1000); // Display for 1 second
+        });
+
+        // --- State ---
+        let cart = [];
+        let modalProduct = {};
+
+        // --- Functions ---
+        
+        // Filter Products
+        function filterProducts(category, btnElement) {
+            // 1. Update Button Styles
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('text-kingo-gold', 'border-b-2', 'border-kingo-gold', 'scale-105');
+                btn.classList.add('text-gray-500');
+            });
+
+            // Set active style for clicked button
+            if (btnElement) {
+                btnElement.classList.remove('text-gray-500');
+                btnElement.classList.add('text-kingo-gold', 'border-b-2', 'border-kingo-gold', 'scale-105');
+            }
+
+            // 2. Filter Grid Items
+            const products = document.querySelectorAll('.product-card');
+            
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                
+                if (category === 'all' || productCategory === category) {
+                    // Show
+                    product.classList.remove('hidden');
+                    product.classList.add('fade-in-up'); // Re-trigger basic CSS animation
+                    setTimeout(() => product.classList.remove('fade-in-up'), 500); 
+                } else {
+                    // Hide
+                    product.classList.add('hidden');
+                }
+            });
+            
+            // Re-trigger AOS layout refresh
+            setTimeout(() => { AOS.refresh(); }, 100);
+        }
+
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('active');
+        }
+
+        // Toggle Cart Sidebar
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            
+            if (sidebar.classList.contains('sidebar-closed')) {
+                sidebar.classList.remove('sidebar-closed');
+                sidebar.classList.add('sidebar-open');
+            } else {
+                sidebar.classList.remove('sidebar-open');
+                sidebar.classList.add('sidebar-closed');
+            }
+        }
+
+        // Add to Cart
+        function addToCart(name, price, image) {
+            cart.push({ name, price, image });
+            updateCartUI();
+            showToast(`Added ${name} to cart!`, `${name} ወደ ጋሪ ገብቷል!`);
+        }
+
+        function addToCartFromModal() {
+            if(modalProduct.name) {
+                addToCart(modalProduct.name, modalProduct.price, modalProduct.image);
+                closeQuickView();
+            }
+        }
+
+        // Update Cart UI
+        function updateCartUI() {
+            const countBadge = document.getElementById('cart-count');
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            // Update Badge
+            countBadge.innerText = cart.length;
+            countBadge.classList.remove('animate-bounce'); // Reset animation
+            void countBadge.offsetWidth; // Trigger reflow
+            countBadge.classList.add('animate-bounce');
+
+            // Render Items
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<div class="text-center text-gray-500 mt-10">Your cart is empty.<br><span class="font-amharic text-sm">ጋሪዎ ባዶ ነው።</span></div>';
+                cartTotal.innerText = '0 ETB';
+            } else {
+                cartItemsContainer.innerHTML = '';
+                let total = 0;
+                
+                cart.forEach((item, index) => {
+                    const priceNum = parseInt(item.price.replace(/,/g, '').replace(' ETB', ''));
+                    total += priceNum;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex items-center space-x-4 bg-gray-50 p-2 rounded transform transition hover:scale-102';
+                    itemEl.innerHTML = `
+                        <img src="${item.image}" class="w-12 h-12 object-cover rounded">
+                        <div class="flex-1">
+                            <h4 class="text-sm font-bold truncate">${item.name}</h4>
+                            <span class="text-xs text-gray-500">${item.price}</span>
+                        </div>
+                        <button onclick="removeFromCart(${index})" class="text-red-400 hover:text-red-600 text-xs font-bold hover:underline flex flex-col items-end">
+                            <span>Remove</span>
+                            <span class="font-amharic text-[10px]">አስወግድ</span>
+                        </button>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+                
+                cartTotal.innerText = total.toLocaleString() + ' ETB';
+            }
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // Quick View Modal
+        function openQuickView(name, price, image, desc) {
+            modalProduct = { name, price, image };
+            
+            document.getElementById('qv-title').innerText = name;
+            document.getElementById('qv-price').innerText = price;
+            document.getElementById('qv-image').src = image;
+            document.getElementById('qv-desc').innerText = desc;
+            
+            const modal = document.getElementById('quick-view-modal');
+            const content = document.getElementById('modal-content');
+            
+            modal.classList.remove('hidden');
+            // Small zoom in effect for modal content
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeQuickView() {
+            const modal = document.getElementById('quick-view-modal');
+            const content = document.getElementById('modal-content');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Toast Notification
+        function showToast(message, amharicMessage = "") {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-gray-900 text-white px-6 py-3 rounded shadow-lg flex items-center space-x-2 transform translate-y-10 opacity-0 transition-all duration-300 hover:scale-105 cursor-pointer';
+            
+            let content = `<i class="fas fa-check-circle text-kingo-gold animate-pulse"></i><div><span class="block">${message}</span>`;
+            if (amharicMessage) {
+                content += `<span class="block text-xs font-amharic text-gray-300">${amharicMessage}</span>`;
+            }
+            content += `</div>`;
+
+            toast.innerHTML = content;
+            
+            container.appendChild(toast);
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            });
+
+            // Remove after 3s
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'translate-x-full');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Newsletter Subscribe
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const input = document.getElementById('newsletter-email');
+            if(input.value) {
+                showToast("Subscribed successfully!", "በተሳካ ሁኔታ ተመዝግበዋል!");
+                input.value = '';
+            }
+        }
+
+        // Load More Products (Simulated)
+        function loadMoreProducts() {
+            const btn = document.getElementById('load-more-btn');
+            const grid = document.getElementById('product-grid');
+            
+            // Loading state
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Loading...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                const newProducts = [
+                    { name: 'Casual Denim Jacket', price: '2,100 ETB', img: 'https://images.unsplash.com/photo-1576871337622-98d48d1cf531?q=80&w=1887&auto=format&fit=crop', category: 'Casual' },
+                    { name: 'Velvet Dinner Blazer', price: '6,000 ETB', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop', category: 'Suits' },
+                    { name: 'Summer Linen Set', price: '3,500 ETB', img: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop', category: 'Casual' },
+                    { name: 'Suede Chelsea Boots', price: '4,200 ETB', img: 'https://images.unsplash.com/photo-1638247025967-b4e38f787b76?q=80&w=2070&auto=format&fit=crop', category: 'Shoes' }
+                ];
+
+                newProducts.forEach(p => {
+                    const div = document.createElement('div');
+                    // Add data-category here
+                    div.setAttribute('data-category', p.category);
+                    
+                    // AOS Attribute
+                    div.setAttribute('data-aos', 'fade-up');
+                    
+                    // Determine if it should be visible based on current filter
+                    const activeFilter = document.querySelector('.category-btn.text-kingo-gold span:first-child').innerText.trim();
+                    const isHidden = (activeFilter !== 'All' && activeFilter !== p.category) ? 'hidden' : '';
+
+                    div.className = `product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 ${isHidden}`;
+                    div.innerHTML = `
+                        <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
+                            <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
+                            <div class="product-actions absolute bottom-4 left-0 right-0 flex justify-center space-x-2 opacity-0 transform translate-y-4 transition duration-300 z-10">
+                                <button onclick="addToCart('${p.name}', '${p.price}', '${p.img}')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
+                                <button onclick="openQuickView('${p.name}', '${p.price}', '${p.img}', 'Fresh arrival. Premium quality fabric.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
+                            </div>
+                        </div>
+                        <div class="p-3 md:p-4 text-center">
+                            <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">${p.name}</h3>
+                            <p class="text-gray-500 text-xs md:text-sm mb-2">${p.category}</p>
+                            <span class="text-kingo-gold font-bold text-sm md:text-lg">${p.price}</span>
+                        </div>
+                    `;
+                    grid.appendChild(div);
+                });
+
+                btn.innerHTML = 'View All Products <br> <span class="font-amharic text-[10px] font-normal normal-case">ሁሉንም ምርቶች ይመልከቱ</span>';
+                btn.disabled = false;
+                
+                // If new products were hidden because of active filter, maybe show toast
+                const activeFilter = document.querySelector('.category-btn.text-kingo-gold span:first-child').innerText.trim();
+                if (activeFilter !== 'All') {
+                    showToast(`New items loaded. Switch to 'All' to see everything.`, `አዳዲስ እቃዎች ተጭነዋል። ሁሉንም ለማየት ወደ 'All' ይቀይሩ።`);
+                }
+                
+                 btn.style.display = 'none';
+                 // Refresh AOS to catch new elements
+                 AOS.refresh();
+            }, 1000);
+        }
+
+        // Sticky Navbar Shadow
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 0) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        });
+        
+        // Proposal Modal Functions
+        function openProposalModal() {
+            const modal = document.getElementById('proposal-modal');
+            const content = document.getElementById('proposal-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeProposalModal() {
+            const modal = document.getElementById('proposal-modal');
+            const content = document.getElementById('proposal-content');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+    </script>
+</body>
+</html>
