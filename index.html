@@ -98,72 +98,55 @@
         </div>
     </div>
 
-    <!-- Top Bar -->
-    <div class="bg-kingo-dark text-gray-400 py-2 text-xs border-b border-gray-800">
-        <div class="container mx-auto px-4 flex justify-between items-center">
-            <div class="flex items-center space-x-4">
-                <span class="hover:text-white transition"><i class="fas fa-phone-alt mr-2 text-kingo-gold"></i>+251 911 000 000</span>
-                <span class="hidden md:inline hover:text-white transition"><i class="fas fa-map-marker-alt mr-2 text-kingo-gold"></i>Bole, Addis Ababa <span class="font-amharic ml-1 text-[10px]">(ቦሌ፣ አዲስ አበባ)</span></span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <button onclick="openProposalModal()" class="bg-kingo-gold text-kingo-dark px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider hover:bg-white transition duration-300 shadow-sm border border-transparent hover:border-kingo-gold animate-pulse">
-                    Open Proposal
-                </button>
-                <div class="flex space-x-4 border-l border-gray-700 pl-4">
-                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-kingo-gold transition transform hover:scale-110"><i class="fab fa-tiktok"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-lg transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+    <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300 bg-transparent text-white py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
             <!-- Logo -->
-            <a href="#" class="text-3xl font-header font-bold tracking-widest text-kingo-dark flex items-center gap-2 group">
+            <a href="#" id="nav-logo" class="text-3xl font-header font-bold tracking-widest flex items-center gap-2 group text-white">
                 KINGO<span class="text-kingo-gold group-hover:rotate-12 transition-transform duration-300 inline-block">FASHION</span>
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wide uppercase items-center">
+            <div id="nav-links" class="hidden md:flex space-x-8 font-medium text-sm tracking-wide uppercase items-center text-white/90">
                 <a href="#" class="group text-center hover:text-kingo-gold transition duration-300">
                     <span class="block">Home</span>
-                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">መነሻ</span>
+                    <span class="block text-[10px] font-amharic opacity-70 group-hover:opacity-100 group-hover:text-kingo-gold -mt-1 transition-opacity">መነሻ</span>
                 </a>
                 <a href="#collection" class="group text-center hover:text-kingo-gold transition duration-300">
                     <span class="block">New Arrivals</span>
-                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">አዲስ የገቡ</span>
+                    <span class="block text-[10px] font-amharic opacity-70 group-hover:opacity-100 group-hover:text-kingo-gold -mt-1 transition-opacity">አዲስ የገቡ</span>
                 </a>
                 <a href="#collection" onclick="document.getElementById('btn-suits').click()" class="group text-center hover:text-kingo-gold transition duration-300 cursor-pointer">
                     <span class="block">Suits</span>
-                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ሱፍ</span>
+                    <span class="block text-[10px] font-amharic opacity-70 group-hover:opacity-100 group-hover:text-kingo-gold -mt-1 transition-opacity">ሱፍ</span>
                 </a>
                 <a href="#collection" onclick="document.getElementById('btn-shoes').click()" class="group text-center hover:text-kingo-gold transition duration-300 cursor-pointer">
                     <span class="block">Shoes</span>
-                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ጫማ</span>
+                    <span class="block text-[10px] font-amharic opacity-70 group-hover:opacity-100 group-hover:text-kingo-gold -mt-1 transition-opacity">ጫማ</span>
                 </a>
                 <a href="#contact" class="group text-center hover:text-kingo-gold transition duration-300">
                     <span class="block">Contact</span>
-                    <span class="block text-[10px] font-amharic text-gray-500 group-hover:text-kingo-gold -mt-1">ያግኙን</span>
+                    <span class="block text-[10px] font-amharic opacity-70 group-hover:opacity-100 group-hover:text-kingo-gold -mt-1 transition-opacity">ያግኙን</span>
                 </a>
             </div>
 
             <!-- Icons -->
-            <div class="flex items-center space-x-5">
-                <button onclick="toggleCart()" class="text-gray-800 hover:text-kingo-gold transition relative z-50 transform hover:scale-110">
+            <div id="nav-icons" class="flex items-center space-x-5 text-white">
+                <button onclick="openProposalModal()" class="bg-kingo-gold text-kingo-dark px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider hover:bg-white transition duration-300 shadow-sm border border-transparent hover:border-kingo-gold animate-pulse">
+                    Open Proposal
+                </button>
+                <button onclick="toggleCart()" class="hover:text-kingo-gold transition relative z-50 transform hover:scale-110">
                     <i class="fas fa-shopping-bag text-xl"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-kingo-gold text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center animate-bounce">0</span>
                 </button>
-                <button class="md:hidden text-gray-800 focus:outline-none transform hover:rotate-180 transition duration-500" onclick="toggleMenu()">
+                <button class="md:hidden focus:outline-none transform hover:rotate-180 transition duration-500" onclick="toggleMenu()">
                     <i class="fas fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="bg-gray-50 border-t md:hidden">
+        <div id="mobile-menu" class="bg-white text-gray-800 border-t md:hidden shadow-xl">
             <div class="flex flex-col p-4 space-y-3 font-medium">
                 <a href="#" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
                     Home <span class="text-xs font-amharic text-gray-500 ml-2">መነሻ</span>
@@ -185,14 +168,27 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="relative bg-kingo-dark h-[650px] flex items-center overflow-hidden">
-        <!-- Background Image with Overlay and Zoom Effect -->
+    <!-- Added -mt-24 to pull hero under nav, and pt-32 to push content down -->
+    <header class="relative bg-kingo-dark h-[750px] flex items-center overflow-hidden -mt-24">
+        <!-- Background Video with Overlay and Zoom Effect -->
         <div class="absolute inset-0 z-0 overflow-hidden">
-            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop" alt="Men Fashion" class="w-full h-full object-cover opacity-40 transform hover:scale-110 transition duration-[20s] ease-linear">
-            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/70 to-transparent"></div>
+            <video 
+                autoplay 
+                loop 
+                muted 
+                playsinline 
+                poster="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop"
+                class="w-full h-full object-cover opacity-40 transform hover:scale-110 transition duration-[20s] ease-linear"
+            >
+                <source src="hero-bg.mp4" type="video/mp4">
+                <!-- Fallback image if video fails or is not supported -->
+                <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop" alt="Men Fashion" class="w-full h-full object-cover opacity-40">
+            </video>
+            <!-- Further reduced gradient opacity -->
+            <div class="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent"></div>
         </div>
 
-        <div class="container mx-auto px-4 relative z-10">
+        <div class="container mx-auto px-4 relative z-10 pt-24">
             <div class="max-w-xl">
                 <span data-aos="fade-right" data-aos-duration="1000" class="text-kingo-gold font-bold tracking-widest uppercase text-sm mb-2 block">
                     Premium Collection 2025 <br> 
@@ -205,9 +201,9 @@
                     እንደ ንጉስ ይልበሱ።
                 </h2>
                 <p data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400" class="text-gray-300 text-lg mb-8 leading-relaxed">
-                    Elevate your style with our exclusive range of bespoke suits, traditional Habesha wear, and modern casuals.
+                    Elevate your style with our exclusive range of bespoke suits, shoes, and modern casuals.
                     <br>
-                    <span class="font-amharic text-sm text-gray-400 mt-1 block">ስታይልዎን በልዩ የሱፍ፣ የሀበሻ ባህላዊ ልብሶች እና ዘመናዊ ካልቾዎች ያሳድጉ።</span>
+                    <span class="font-amharic text-sm text-gray-400 mt-1 block">ስታይልዎን በልዩ የሱፍ፣ የጫማ እና ዘመናዊ ካልቾዎች ያሳድጉ።</span>
                 </p>
                 <div data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600" class="flex space-x-4 mb-6">
                     <a href="#collection" class="btn-interactive bg-kingo-gold text-white px-8 py-3 font-bold hover:bg-yellow-600 rounded-sm shadow-lg hover:shadow-yellow-500/50 text-center">
@@ -217,7 +213,7 @@
                         Visit Store <br> <span class="font-amharic text-xs font-normal">ሱቅ ይጎብኙ</span>
                     </a>
                 </div>
-                <p data-aos="fade-in" data-aos-duration="1500" data-aos-delay="1000" class="text-xs text-gray-400 font-medium tracking-wide">Designed by Pawlos Mulugeta</p>
+                <p data-aos="fade-in" data-aos-duration="1500" data-aos-delay="1000" class="text-xs text-gray-400 font-medium tracking-wide">Designed by <span class="font-bold animate-pulse text-white">Pawlos Mulugeta</span></p>
             </div>
         </div>
     </header>
@@ -317,6 +313,7 @@
                             <button onclick="addToCart('Oxford Formal Shirt', '1,500 ETB', 'https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
                             <button onclick="openQuickView('Oxford Formal Shirt', '1,500 ETB', 'https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop', 'Classic white Oxford shirt, 100% cotton, breathable and wrinkle-resistant.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
                         </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                     </div>
                     <div class="p-3 md:p-4 text-center">
                         <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Oxford Formal Shirt</h3>
@@ -334,6 +331,7 @@
                             <button onclick="addToCart('Classic Oxfords', '3,500 ETB', 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
                             <button onclick="openQuickView('Classic Oxfords', '3,500 ETB', 'https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop', 'Premium leather Oxford shoes, perfect for formal occasions.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
                         </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                     </div>
                     <div class="p-3 md:p-4 text-center">
                         <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Classic Oxfords</h3>
@@ -350,6 +348,7 @@
                             <button onclick="addToCart('Leather Loafers', '2,800 ETB', 'https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-shopping-cart text-xs md:text-base"></i></button>
                             <button onclick="openQuickView('Leather Loafers', '2,800 ETB', 'https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop', 'Handcrafted pure leather loafers. Durable, stylish, and comfortable.')" class="bg-white text-black p-2 md:p-3 rounded-full hover:bg-kingo-gold hover:text-white shadow-lg transition hover:rotate-12 transform"><i class="fas fa-eye text-xs md:text-base"></i></button>
                         </div>
+                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-10 transition duration-300"></div>
                     </div>
                     <div class="p-3 md:p-4 text-center">
                         <h3 class="font-bold text-sm md:text-lg mb-1 group-hover:text-kingo-gold transition truncate">Leather Loafers</h3>
@@ -992,6 +991,56 @@
                 modal.classList.add('hidden');
             }, 200);
         }
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const navLogo = document.getElementById('nav-logo');
+            const navLinks = document.getElementById('nav-links');
+            const navIcons = document.getElementById('nav-icons');
+            const amharicTexts = document.querySelectorAll('#nav-links .font-amharic');
+
+            if (window.scrollY > 50) {
+                // Scrolled State (White Background)
+                navbar.classList.remove('bg-transparent', 'text-white', 'py-4');
+                navbar.classList.add('bg-white/95', 'backdrop-blur-sm', 'shadow-lg', 'text-gray-800', 'py-2');
+                
+                navLogo.classList.remove('text-white');
+                navLogo.classList.add('text-kingo-dark');
+                
+                navLinks.classList.remove('text-white/90');
+                navLinks.classList.add('text-gray-600');
+                
+                navIcons.classList.remove('text-white');
+                navIcons.classList.add('text-gray-800');
+
+                // Amharic text color fix for white background
+                amharicTexts.forEach(el => {
+                    el.classList.remove('text-gray-200'); // if added previously
+                    el.classList.add('text-gray-500');
+                });
+
+            } else {
+                // Top State (Transparent)
+                navbar.classList.add('bg-transparent', 'text-white', 'py-4');
+                navbar.classList.remove('bg-white/95', 'backdrop-blur-sm', 'shadow-lg', 'text-gray-800', 'py-2');
+                
+                navLogo.classList.add('text-white');
+                navLogo.classList.remove('text-kingo-dark');
+                
+                navLinks.classList.add('text-white/90');
+                navLinks.classList.remove('text-gray-600');
+                
+                navIcons.classList.add('text-white');
+                navIcons.classList.remove('text-gray-800');
+
+                // Amharic text color fix for dark background
+                amharicTexts.forEach(el => {
+                    el.classList.remove('text-gray-500');
+                    // We rely on opacity-70 and inherit color (white)
+                });
+            }
+        });
     </script>
 </body>
 </html>
