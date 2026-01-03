@@ -75,7 +75,7 @@
         .sidebar-open { transform: translateX(0) !important; }
         .sidebar-closed { transform: translateX(100%); }
         
-        #quick-view-modal { transition: opacity 0.3s ease-in-out; }
+        #quick-view-modal, #checkout-modal, #proposal-modal { transition: opacity 0.3s ease-in-out; }
 
         /* Button Ripple Effect */
         .btn-interactive {
@@ -85,6 +85,18 @@
         }
         .btn-interactive:active {
             transform: scale(0.95);
+        }
+
+        /* Custom Scrollbar for Summary */
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #D4AF37; 
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -168,7 +180,6 @@
     </nav>
 
     <!-- Hero Section -->
-    <!-- Changed h-[750px] to h-screen to fill viewport on all devices -->
     <header class="relative bg-kingo-dark h-screen flex items-center overflow-hidden -mt-24">
         <!-- Background Video with Overlay and Zoom Effect -->
         <div class="absolute inset-0 z-0 overflow-hidden">
@@ -486,7 +497,7 @@
                 <span class="flex flex-col"><span>Total:</span><span class="text-xs font-amharic font-normal text-gray-500">ጠቅላላ፡</span></span>
                 <span id="cart-total">0 ETB</span>
             </div>
-            <button onclick="alert('Checkout functionality would go here!')" class="btn-interactive w-full bg-kingo-dark text-white py-3 font-bold hover:bg-kingo-gold transition uppercase tracking-wide text-center">
+            <button onclick="openCheckoutModal()" class="btn-interactive w-full bg-kingo-dark text-white py-3 font-bold hover:bg-kingo-gold transition uppercase tracking-wide text-center">
                 Checkout <br>
                 <span class="font-amharic text-xs font-normal normal-case">ይክፈሉ</span>
             </button>
@@ -516,6 +527,54 @@
                         <span class="font-amharic text-[10px] font-normal normal-case">የምኞት ዝርዝር</span>
                     </button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 z-[80] hidden">
+        <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity" onclick="closeCheckoutModal()"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-lg rounded-lg shadow-2xl overflow-hidden flex flex-col transition-all duration-300 scale-95" id="checkout-content">
+            <div class="p-6 border-b flex justify-between items-center bg-gray-50">
+                 <div>
+                    <h2 class="text-xl font-bold font-header">Checkout</h2>
+                    <h3 class="text-sm font-amharic text-gray-500">ትዕዛዝ ማጠናቀቂያ</h3>
+                </div>
+                <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-black hover:rotate-90 transition"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <div class="p-6">
+                <!-- Order Summary Mini Display -->
+                <div class="mb-6">
+                    <h4 class="font-bold text-gray-700 mb-2 border-b pb-1">Order Summary <span class="text-xs font-amharic font-normal text-gray-500">(የትዕዛዝ ማጠቃለያ)</span></h4>
+                    <div id="checkout-items-container" class="max-h-40 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
+                        <!-- Items will be injected here via JS -->
+                    </div>
+                </div>
+
+                <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Full Name <span class="text-xs font-amharic font-normal text-gray-500">(ሙሉ ስም)</span></label>
+                        <input type="text" required class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-kingo-gold outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Phone Number <span class="text-xs font-amharic font-normal text-gray-500">(ስልክ ቁጥር)</span></label>
+                        <input type="tel" required class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-kingo-gold outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Delivery Address <span class="text-xs font-amharic font-normal text-gray-500">(የማድረሻ አድራሻ)</span></label>
+                        <textarea required rows="3" class="w-full border border-gray-300 p-2 rounded focus:ring-1 focus:ring-kingo-gold outline-none transition"></textarea>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-3 rounded text-sm flex justify-between items-center font-bold">
+                        <span>Total to Pay:</span>
+                        <span id="checkout-total-display" class="text-kingo-gold text-lg">0 ETB</span>
+                    </div>
+
+                    <button type="submit" class="btn-interactive w-full bg-kingo-gold text-white py-3 font-bold hover:bg-yellow-600 transition uppercase rounded shadow-lg text-center">
+                        Confirm Order <br>
+                        <span class="font-amharic text-xs font-normal normal-case">ትዕዛዙን ያረጋግጡ</span>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
@@ -856,6 +915,82 @@
             setTimeout(() => {
                 modal.classList.add('hidden');
             }, 200);
+        }
+
+        // Checkout Modal Functions
+        function openCheckoutModal() {
+            if (cart.length === 0) {
+                showToast("Your cart is empty!", "ጋሪዎ ባዶ ነው!");
+                return;
+            }
+
+            // Calculate total again for display
+            let total = 0;
+            cart.forEach(item => {
+                const priceNum = parseInt(item.price.replace(/,/g, '').replace(' ETB', ''));
+                total += priceNum;
+            });
+            document.getElementById('checkout-total-display').innerText = total.toLocaleString() + ' ETB';
+
+            // Populate Summary
+            const summaryContainer = document.getElementById('checkout-items-container');
+            summaryContainer.innerHTML = '';
+            
+            cart.forEach(item => {
+                 const div = document.createElement('div');
+                 div.className = 'flex justify-between items-center text-sm border-b border-gray-100 pb-2';
+                 div.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <img src="${item.image}" class="w-10 h-10 object-cover rounded">
+                        <div>
+                            <p class="font-bold text-gray-800 line-clamp-1">${item.name}</p>
+                            <p class="text-xs text-gray-500">${item.price}</p>
+                        </div>
+                    </div>
+                 `;
+                 summaryContainer.appendChild(div);
+            });
+
+            const modal = document.getElementById('checkout-modal');
+            const content = document.getElementById('checkout-content');
+            
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+            
+            // Close sidebar if open
+            const sidebar = document.getElementById('cart-sidebar');
+            if (sidebar.classList.contains('sidebar-open')) {
+                toggleCart();
+            }
+        }
+
+        function closeCheckoutModal() {
+            const modal = document.getElementById('checkout-modal');
+            const content = document.getElementById('checkout-content');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        function handleCheckoutSubmit(e) {
+            e.preventDefault();
+            // In a real app, gather form data here
+            
+            closeCheckoutModal();
+            
+            // Simulate processing
+            setTimeout(() => {
+                showToast("Order placed successfully!", "ትዕዛዝዎ በተሳካ ሁኔታ ተላልፏል!");
+                cart = []; // Clear cart
+                updateCartUI();
+            }, 300);
         }
 
         // Toast Notification
