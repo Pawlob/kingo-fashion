@@ -5,14 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KINGO FASHION | Men's Premium Wear</title>
     
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600&family=Poppins:wght@300;400;500;600&family=Noto+Serif+Ethiopic:wght@400;700&display=swap" rel="stylesheet">
     
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Custom Config -->
     <script>
         tailwind.config = {
             theme: {
@@ -97,6 +102,7 @@
 </head>
 <body class="font-sans text-gray-800 bg-white relative overflow-x-hidden">
 
+    <!-- Preloader -->
     <div id="preloader" class="fixed inset-0 z-[60] bg-kingo-dark flex items-center justify-center transition-opacity duration-700">
         <div class="text-center">
             <h1 class="text-5xl font-header font-bold tracking-widest text-white mb-4 animate-pulse">KINGO<span class="text-kingo-gold">FASHION</span></h1>
@@ -104,12 +110,15 @@
         </div>
     </div>
 
+    <!-- Navigation -->
     <nav id="navbar" class="sticky top-0 z-50 transition-all duration-300 bg-transparent text-white py-4">
         <div class="container mx-auto px-4 flex justify-between items-center">
+            <!-- Logo -->
             <a href="#" id="nav-logo" class="text-3xl font-header font-bold tracking-widest flex items-center gap-2 group text-white">
                 KINGO<span class="text-kingo-gold group-hover:rotate-12 transition-transform duration-300 inline-block">FASHION</span>
             </a>
 
+            <!-- Desktop Menu -->
             <div id="nav-links" class="hidden md:flex space-x-8 font-medium text-sm tracking-wide uppercase items-center text-white/90">
                 <a href="#" class="group text-center hover:text-kingo-gold transition duration-300">
                     <span class="block">Home</span>
@@ -133,6 +142,7 @@
                 </a>
             </div>
 
+            <!-- Icons -->
             <div id="nav-icons" class="flex items-center space-x-5 text-white">
                 <button onclick="openProposalModal()" class="bg-kingo-gold text-kingo-dark px-3 py-1 rounded text-[10px] font-bold uppercase tracking-wider hover:bg-white transition duration-300 shadow-sm border border-transparent hover:border-kingo-gold animate-pulse">
                     Open Proposal
@@ -147,6 +157,7 @@
             </div>
         </div>
 
+        <!-- Mobile Menu -->
         <div id="mobile-menu" class="bg-white text-gray-800 border-t md:hidden shadow-xl">
             <div class="flex flex-col p-4 space-y-3 font-medium">
                 <a href="#" class="block hover:text-kingo-gold hover:translate-x-2 transition-transform duration-300">
@@ -168,7 +179,9 @@
         </div>
     </nav>
 
+    <!-- Hero Section -->
     <header class="relative bg-kingo-dark h-screen flex items-center overflow-hidden -mt-24">
+        <!-- Background Video with Overlay and Zoom Effect -->
         <div class="absolute inset-0 z-0 overflow-hidden">
             <video 
                 autoplay 
@@ -179,8 +192,10 @@
                 class="w-full h-full object-cover opacity-40 transform hover:scale-110 transition duration-[20s] ease-linear"
             >
                 <source src="hero-bg.mp4" type="video/mp4">
+                <!-- Fallback image if video fails or is not supported -->
                 <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?q=80&w=2080&auto=format&fit=crop" alt="Men Fashion" class="w-full h-full object-cover opacity-40">
             </video>
+            <!-- Further reduced gradient opacity -->
             <div class="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent"></div>
         </div>
 
@@ -214,6 +229,7 @@
         </div>
     </header>
 
+    <!-- Features Section -->
     <section class="py-16 bg-white overflow-hidden">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-3 gap-8 text-center">
@@ -248,6 +264,7 @@
         </div>
     </section>
 
+    <!-- Products Section -->
     <section id="collection" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12" data-aos="zoom-in">
@@ -258,6 +275,7 @@
                 <div class="w-20 h-1 bg-kingo-gold mx-auto mt-4 rounded-full"></div>
             </div>
 
+            <!-- Categories Tabs -->
             <div class="flex justify-center mb-10 space-x-4 md:space-x-8 text-sm md:text-base font-medium" data-aos="fade-up">
                 <button onclick="filterProducts('all', this)" class="category-btn text-center text-kingo-gold border-b-2 border-kingo-gold pb-1 transition-all duration-300 hover:text-kingo-gold hover:scale-105">
                     <span class="block">All</span>
@@ -277,8 +295,10 @@
                 </button>
             </div>
 
+            <!-- Product Grid -->
             <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-8">
                 
+                <!-- Product 1 -->
                 <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Suits" data-aos="fade-up" data-aos-delay="100">
                     <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1593032465175-481ac7f401a0?q=80&w=2080&auto=format&fit=crop" alt="Suit" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
@@ -296,6 +316,7 @@
                     </div>
                 </div>
 
+                <!-- Product 2 -->
                 <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Casual" data-aos="fade-up" data-aos-delay="200">
                     <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1516257984-b1b4d8c9230c?q=80&w=1887&auto=format&fit=crop" alt="Shirt" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
@@ -312,6 +333,7 @@
                     </div>
                 </div>
 
+                <!-- Product 3 -->
                 <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Shoes" data-aos="fade-up" data-aos-delay="300">
                     <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=1920&auto=format&fit=crop" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
@@ -329,6 +351,7 @@
                     </div>
                 </div>
 
+                <!-- Product 4 -->
                 <div class="product-card group bg-white rounded-lg overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-1" data-category="Shoes" data-aos="fade-up" data-aos-delay="400">
                     <div class="relative h-48 md:h-80 bg-gray-200 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1617137968427-b293542e0d5f?q=80&w=1887&auto=format&fit=crop" alt="Shoes" class="w-full h-full object-cover group-hover:scale-110 transition duration-700 ease-in-out">
@@ -348,14 +371,15 @@
             </div>
             
             <div class="text-center mt-12" data-aos="fade-up">
-                <button onclick="loadMoreProducts()" id="load-more-btn" class="btn-interactive inline-block border-2 border-gray-900 px-10 py-3 text-gray-900 font-bold hover:bg-gray-900 hover:text-white transition duration-300 uppercase tracking-widest text-sm focus:outline-none text-center">
+                <a href="products.html" class="btn-interactive bg-kingo-gold text-white px-10 py-4 font-bold rounded hover:bg-white hover:text-black transition duration-300 uppercase tracking-widest text-sm inline-block shadow-lg hover:shadow-xl text-center">
                     View All Products <br>
                     <span class="font-amharic text-[10px] font-normal normal-case">ሁሉንም ምርቶች ይመልከቱ</span>
-                </button>
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- Promo Banner -->
     <section class="py-20 bg-fixed bg-cover bg-center relative" style="background-image: url('https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=2071&auto=format&fit=crop');">
         <div class="absolute inset-0 bg-black bg-opacity-70"></div>
         <div class="container mx-auto px-4 relative z-10 text-center text-white" data-aos="zoom-in" data-aos-duration="1000">
@@ -370,10 +394,12 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer id="contact" class="bg-kingo-dark text-white pt-16 pb-8 border-t border-gray-800">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 
+                <!-- About -->
                 <div data-aos="fade-up" data-aos-delay="100">
                     <h4 class="text-2xl font-header font-bold mb-6">KINGO<span class="text-kingo-gold">FASHION</span></h4>
                     <p class="text-gray-400 text-sm leading-relaxed mb-4">
@@ -389,6 +415,7 @@
                     </div>
                 </div>
 
+                <!-- Links -->
                 <div data-aos="fade-up" data-aos-delay="200">
                     <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
                         Quick Links <br>
@@ -402,6 +429,7 @@
                     </ul>
                 </div>
 
+                <!-- Contact -->
                 <div data-aos="fade-up" data-aos-delay="300">
                     <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
                         Contact Us <br>
@@ -423,6 +451,7 @@
                     </ul>
                 </div>
 
+                <!-- Newsletter -->
                 <div data-aos="fade-up" data-aos-delay="400">
                     <h4 class="text-lg font-bold mb-6 uppercase tracking-wider">
                         Newsletter <br>
@@ -446,6 +475,7 @@
         </div>
     </footer>
 
+    <!-- Cart Sidebar -->
     <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-80 bg-white shadow-2xl transform translate-x-full sidebar-closed z-[70] flex flex-col">
         <div class="p-5 border-b flex justify-between items-center bg-gray-50">
             <div>
@@ -455,6 +485,7 @@
             <button onclick="toggleCart()" class="text-gray-500 hover:text-red-500 hover:rotate-90 transition duration-300"><i class="fas fa-times text-xl"></i></button>
         </div>
         <div id="cart-items" class="flex-1 overflow-y-auto p-5 space-y-4">
+            <!-- Cart Items will be injected here -->
             <div class="text-center text-gray-500 mt-10">
                 Your cart is empty.
                 <br>
@@ -473,6 +504,7 @@
         </div>
     </div>
 
+    <!-- Quick View Modal -->
     <div id="quick-view-modal" class="fixed inset-0 z-[80] hidden">
         <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity" onclick="closeQuickView()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-3xl rounded-lg shadow-2xl overflow-hidden flex flex-col md:flex-row transition-all duration-300 scale-95" id="modal-content">
@@ -499,6 +531,7 @@
         </div>
     </div>
 
+    <!-- Checkout Modal -->
     <div id="checkout-modal" class="fixed inset-0 z-[80] hidden">
         <div class="absolute inset-0 bg-black bg-opacity-70 backdrop-blur-sm transition-opacity" onclick="closeCheckoutModal()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-lg rounded-lg shadow-2xl overflow-hidden flex flex-col transition-all duration-300 scale-95" id="checkout-content">
@@ -510,10 +543,12 @@
                 <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-black hover:rotate-90 transition"><i class="fas fa-times text-xl"></i></button>
             </div>
             <div class="p-6">
+                <!-- Order Summary Mini Display -->
                 <div class="mb-6">
                     <h4 class="font-bold text-gray-700 mb-2 border-b pb-1">Order Summary <span class="text-xs font-amharic font-normal text-gray-500">(የትዕዛዝ ማጠቃለያ)</span></h4>
                     <div id="checkout-items-container" class="max-h-40 overflow-y-auto space-y-2 pr-2 custom-scrollbar">
-                        </div>
+                        <!-- Items will be injected here via JS -->
+                    </div>
                 </div>
 
                 <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
@@ -544,10 +579,12 @@
         </div>
     </div>
 
+    <!-- Proposal Modal -->
     <div id="proposal-modal" class="fixed inset-0 z-[100] hidden">
         <div class="absolute inset-0 bg-black bg-opacity-80 backdrop-blur-sm transition-opacity" onclick="closeProposalModal()"></div>
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white w-full max-w-4xl h-[85vh] rounded-lg shadow-2xl overflow-hidden flex flex-col transition-all duration-300 scale-95" id="proposal-content">
             
+            <!-- Header -->
             <div class="bg-kingo-dark text-white p-6 flex justify-between items-center border-b border-gray-800">
                 <div>
                     <h2 class="text-2xl font-header font-bold tracking-widest">PROJECT <span class="text-kingo-gold">PROPOSAL</span></h2>
@@ -556,7 +593,9 @@
                 <button onclick="closeProposalModal()" class="text-gray-400 hover:text-white hover:rotate-90 transition"><i class="fas fa-times text-2xl"></i></button>
             </div>
 
+            <!-- Content -->
             <div class="p-8 overflow-y-auto bg-gray-50 leading-relaxed text-gray-700 font-sans">
+                <!-- Proposal Content from Markdown -->
                 <div class="mb-8">
                     <h3 class="text-xl font-bold text-gray-900 mb-2">1. Executive Summary</h3>
                     <p>Kingo Fashion requires a premium digital presence that reflects its status as a leader in men's wear in Ethiopia. This project aims to develop a high-performance, responsive, and culturally resonant e-commerce platform. The website will serve not just as a catalog, but as an immersive brand experience blending international standards with local Ethiopian heritage.</p>
@@ -619,6 +658,7 @@
                     </ul>
                 </div>
 
+                <!-- Investment Section -->
                 <div class="mb-8">
                     <h3 class="text-xl font-bold text-gray-900 mb-4">6. Investment Breakdown</h3>
                     <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden">
@@ -634,36 +674,36 @@
                                 <tr>
                                     <td class="px-4 py-3 font-medium">1. UI/UX Design & Prototyping</td>
                                     <td class="px-4 py-3 text-gray-600">Creation of visual identity, wireframes, and mobile-first layouts.</td>
-                                    <td class="px-4 py-3 text-right font-medium">12,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">18,000</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-3 font-medium">2. Frontend Development</td>
                                     <td class="px-4 py-3 text-gray-600">Implementation of HTML5, Tailwind CSS, Responsive Grids, and Animations.</td>
-                                    <td class="px-4 py-3 text-right font-medium">26,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">38,000</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-3 font-medium">3. Content & Localization</td>
                                     <td class="px-4 py-3 text-gray-600">Amharic translation integration, image optimization, and copy structuring.</td>
-                                    <td class="px-4 py-3 text-right font-medium">8,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">12,000</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-3 font-medium">4. Testing & QA</td>
                                     <td class="px-4 py-3 text-gray-600">Cross-browser testing, mobile performance optimization, and bug fixing.</td>
-                                    <td class="px-4 py-3 text-right font-medium">7,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">10,000</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-3 font-medium">5. Deployment & Setup</td>
                                     <td class="px-4 py-3 text-gray-600">Server configuration, domain setup, and SEO basic implementation.</td>
-                                    <td class="px-4 py-3 text-right font-medium">6,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">8,000</td>
                                 </tr>
                                 <tr>
                                     <td class="px-4 py-3 font-medium">6. Post-Launch Support</td>
                                     <td class="px-4 py-3 text-gray-600">30 days of technical support and minor adjustments after launch.</td>
-                                    <td class="px-4 py-3 text-right font-medium">5,000</td>
+                                    <td class="px-4 py-3 text-right font-medium">8,000</td>
                                 </tr>
                                 <tr class="bg-gray-50">
                                     <td colspan="2" class="px-4 py-3 font-bold text-kingo-dark text-right">TOTAL</td>
-                                    <td class="px-4 py-3 text-right font-bold text-kingo-gold text-lg">64,000 ETB</td>
+                                    <td class="px-4 py-3 text-right font-bold text-kingo-gold text-lg">94,000 ETB</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -691,10 +731,13 @@
         </div>
     </div>
 
+    <!-- Toast Notification Container -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-[90] flex flex-col space-y-3"></div>
 
+    <!-- AOS JS Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
+    <!-- JavaScript -->
     <script>
         // --- Initialization ---
         
